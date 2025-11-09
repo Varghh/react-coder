@@ -77,7 +77,7 @@ const Checkout = () => {
       <h1>Finalizar Compra</h1>
       
       <div style={styles.summary}>
-        <h3>Resumen de tu compra</h3>
+        <h3 style={styles.summaryTitle}>Resumen de tu compra</h3>
         {cart.map(prod => (
           <div key={prod.id} style={styles.item}>
             <span>{prod.name} x {prod.quantity}</span>
@@ -147,20 +147,28 @@ const styles = {
     backgroundColor: '#f7fafc',
     padding: '1.5rem',
     borderRadius: '8px',
-    marginBottom: '2rem'
+    marginBottom: '2rem',
+    color: '#1a202c'
+  },
+  summaryTitle: {
+    color: '#1a202c',
+    marginTop: 0,
+    marginBottom: '1rem'
   },
   item: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '0.5rem 0',
-    borderBottom: '1px solid #e2e8f0'
+    borderBottom: '1px solid #e2e8f0',
+    color: '#1a202c'
   },
   total: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '1rem 0',
     fontSize: '1.3rem',
-    marginTop: '1rem'
+    marginTop: '1rem',
+    color: '#1a202c'
   },
   form: {
     display: 'flex',

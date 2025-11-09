@@ -1,55 +1,57 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
-import ItemList from './ItemList';
+import ItemDetail from './ItemDetail';
 
-const ItemListContainer = ({ greeting }) => {
-  const [products, setProducts] = useState([]);
+const ItemDetailContainer = () => {
+  const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const { categoryId } = useParams();
+  const { itemId } = useParams(); // Lee el ID del producto desde la URL
 
   useEffect(() => {
     setLoading(true);
 
-    const productsRef = collection(db, 'products');
+    // Referencia al documento específico en Firebase
+    const docRef = doc(db, 'products', itemId);
 
-    // Si hay categoría, filtrar. Si no, traer todos
-    const q = categoryId 
-      ? query(productsRef, where('category', '==', categoryId))
-      : productsRef;
-
-    getDocs(q)
+    getDoc(docRef)
       .then(response => {
-        const productsAdapted = response.docs.map(doc => {
-          const data = doc.data();
-          return { id: doc.id, ...data };
-        });
-        setProducts(productsAdapted);
+        const data = response.data();
+        const productAdapted = { id: response.id, ...data };
+        setProduct(productAdapted);
       })
       .catch(error => {
-        console.error(error);
+        console.error('Error al cargar producto:', error);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [categoryId]);
+  }, [itemId]); // Se ejecuta cada vez que cambia el ID
 
   if (loading) {
     return (
       <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <h2>Cargando productos...</h2>
+        <h2>Cargando producto...</h2>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+        <h2>Producto no encontrado</h2>
+        <p>El producto que buscas no existe o fue eliminado.</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h1 style={{ textAlign: 'center', margin: '2rem 0' }}>{greeting}</h1>
-      <ItemList products={products} />
+      <ItemDetail {...product} />
     </div>
   );
 };
 
-export default ItemListContainer;
+export default ItemDetailContainer;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProducts, getProductsByCategory } from '../asyncMock';
+import { getProducts, getProductsByCategory } from '../services/productsService';
 import ItemList from './ItemList';
 
 const ItemListContainer = ({ greeting }) => {
@@ -13,14 +13,16 @@ const ItemListContainer = ({ greeting }) => {
     setLoading(true);
 
     // Si hay categoría, filtra. Si no, muestra todos
-    const asyncFunc = categoryId ? getProductsByCategory : getProducts;
+    const fetchProducts = categoryId 
+      ? getProductsByCategory(categoryId)
+      : getProducts();
 
-    asyncFunc(categoryId)
+    fetchProducts
       .then(response => {
         setProducts(response);
       })
       .catch(error => {
-        console.error(error);
+        console.error('Error al cargar productos:', error);
       })
       .finally(() => {
         setLoading(false);
