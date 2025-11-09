@@ -22,6 +22,14 @@ const ItemCount = ({ stock, initial, onAdd }) => {
           style={styles.button}
           onClick={decrement}
           disabled={quantity <= 1}
+          onMouseEnter={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
         >
           -
         </button>
@@ -30,6 +38,14 @@ const ItemCount = ({ stock, initial, onAdd }) => {
           style={styles.button}
           onClick={increment}
           disabled={quantity >= stock}
+          onMouseEnter={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
         >
           +
         </button>
@@ -39,6 +55,16 @@ const ItemCount = ({ stock, initial, onAdd }) => {
           style={styles.addButton}
           onClick={() => onAdd(quantity)}
           disabled={stock <= 0}
+          onMouseEnter={(e) => {
+            if (!e.currentTarget.disabled) {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(78, 205, 196, 0.4)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(78, 205, 196, 0.3)';
+          }}
         >
           Agregar al carrito
         </button>
@@ -51,40 +77,50 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '1rem',
+    gap: '1.5rem',
     alignItems: 'center',
     margin: '1rem 0'
   },
   controls: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem'
+    gap: '1.5rem',
+    padding: '0.5rem',
+    backgroundColor: '#3d3d54',
+    borderRadius: '12px'
   },
   button: {
-    width: '40px',
-    height: '40px',
+    width: '45px',
+    height: '45px',
     fontSize: '1.5rem',
-    backgroundColor: '#3182ce',
+    background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8C42 100%)',
     color: 'white',
     border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer'
+    borderRadius: '10px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 2px 8px rgba(255, 107, 107, 0.3)'
   },
   quantity: {
     margin: 0,
-    fontSize: '1.5rem',
-    minWidth: '40px',
-    textAlign: 'center'
+    fontSize: '1.8rem',
+    minWidth: '50px',
+    textAlign: 'center',
+    color: '#e0e0e0',
+    fontWeight: '600'
   },
   addButton: {
-    padding: '0.75rem 2rem',
-    backgroundColor: '#48bb78',
+    padding: '1rem 2.5rem',
+    background: 'linear-gradient(135deg, #4ECDC4 0%, #20BF6B 100%)',
     color: 'white',
     border: 'none',
-    borderRadius: '4px',
-    fontSize: '1rem',
+    borderRadius: '12px',
+    fontSize: '1.1rem',
     cursor: 'pointer',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(78, 205, 196, 0.3)'
   }
 };
 

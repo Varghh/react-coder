@@ -8,12 +8,11 @@ const ItemDetailContainer = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const { itemId } = useParams(); // Lee el ID del producto desde la URL
+  const { itemId } = useParams();
 
   useEffect(() => {
     setLoading(true);
 
-    // Referencia al documento específico en Firebase
     const docRef = doc(db, 'products', itemId);
 
     getDoc(docRef)
@@ -28,11 +27,11 @@ const ItemDetailContainer = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [itemId]); // Se ejecuta cada vez que cambia el ID
+  }, [itemId]);
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
+      <div style={{ textAlign: 'center', padding: '2rem', color: '#b0b0b0' }}>
         <h2>Cargando producto...</h2>
       </div>
     );
@@ -40,7 +39,7 @@ const ItemDetailContainer = () => {
 
   if (!product) {
     return (
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
+      <div style={{ textAlign: 'center', padding: '2rem', color: '#e0e0e0' }}>
         <h2>Producto no encontrado</h2>
         <p>El producto que buscas no existe o fue eliminado.</p>
       </div>

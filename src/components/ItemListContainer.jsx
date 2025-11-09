@@ -7,12 +7,11 @@ const ItemListContainer = ({ greeting }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { categoryId } = useParams(); // Lee la categoría de la URL
+  const { categoryId } = useParams();
 
   useEffect(() => {
     setLoading(true);
 
-    // Si hay categoría, filtra. Si no, muestra todos
     const fetchProducts = categoryId 
       ? getProductsByCategory(categoryId)
       : getProducts();
@@ -27,19 +26,31 @@ const ItemListContainer = ({ greeting }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [categoryId]); // Se ejecuta cada vez que cambia la categoría
+  }, [categoryId]);
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <h2>Cargando productos...</h2>
+      <div style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+        <h2 style={{ color: '#b0b0b0', fontSize: '1.5rem' }}>Cargando productos...</h2>
       </div>
     );
   }
 
   return (
     <div>
-      <h1 style={{ textAlign: 'center', margin: '2rem 0' }}>{greeting}</h1>
+      <h1 style={{ 
+        textAlign: 'center', 
+        margin: '3rem 0 2rem 0',
+        fontSize: '2.5rem',
+        color: '#e0e0e0',
+        fontWeight: '700',
+        background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8C42 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text'
+      }}>
+        {greeting}
+      </h1>
       <ItemList products={products} />
     </div>
   );

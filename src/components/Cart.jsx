@@ -11,7 +11,18 @@ const Cart = () => {
       <div style={styles.emptyContainer}>
         <h2>Tu carrito está vacío</h2>
         <p>¡Agrega productos para comenzar tu compra!</p>
-        <Link to='/' style={styles.shopButton}>
+        <Link 
+          to='/' 
+          style={styles.shopButton}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 107, 107, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(255, 107, 107, 0.3)';
+          }}
+        >
           Ir a comprar
         </Link>
       </div>
@@ -37,11 +48,30 @@ const Cart = () => {
           <button 
             onClick={clearCart}
             style={styles.clearButton}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(229, 62, 62, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 15px rgba(229, 62, 62, 0.3)';
+            }}
           >
             Vaciar carrito
           </button>
           
-          <Link to='/checkout' style={styles.checkoutButton}>
+          <Link 
+            to='/checkout' 
+            style={styles.checkoutButton}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(78, 205, 196, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 15px rgba(78, 205, 196, 0.3)';
+            }}
+          >
             Finalizar compra
           </Link>
         </div>
@@ -54,34 +84,49 @@ const styles = {
   container: {
     maxWidth: '900px',
     margin: '2rem auto',
-    padding: '2rem'
+    padding: '2rem',
+    color: '#e0e0e0'
   },
   emptyContainer: {
     textAlign: 'center',
-    padding: '4rem 2rem'
+    padding: '4rem 2rem',
+    backgroundColor: '#2d2d44',
+    borderRadius: '16px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+    maxWidth: '500px',
+    margin: '2rem auto',
+    color: '#e0e0e0'
   },
   shopButton: {
     display: 'inline-block',
     marginTop: '2rem',
     padding: '1rem 2rem',
-    backgroundColor: '#3182ce',
+    background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8C42 100%)',
     color: 'white',
     textDecoration: 'none',
-    borderRadius: '4px',
-    fontWeight: 'bold'
+    borderRadius: '10px',
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(255, 107, 107, 0.3)'
   },
   items: {
     marginTop: '2rem'
   },
   summary: {
     marginTop: '2rem',
-    borderTop: '2px solid #ddd',
-    paddingTop: '2rem'
+    borderTop: '3px solid #3d3d54',
+    paddingTop: '2rem',
+    backgroundColor: '#2d2d44',
+    padding: '2rem',
+    borderRadius: '16px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+    color: '#e0e0e0'
   },
   total: {
-    fontSize: '1.8rem',
-    color: '#2c5282',
-    marginBottom: '1rem'
+    fontSize: '2rem',
+    color: '#FF6B6B',
+    marginBottom: '1.5rem',
+    fontWeight: '700'
   },
   buttons: {
     display: 'flex',
@@ -90,20 +135,24 @@ const styles = {
   },
   clearButton: {
     padding: '0.75rem 2rem',
-    backgroundColor: '#e53e3e',
+    background: 'linear-gradient(135deg, #e53e3e 0%, #c53030 100%)',
     color: 'white',
     border: 'none',
-    borderRadius: '4px',
+    borderRadius: '10px',
     cursor: 'pointer',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(229, 62, 62, 0.3)'
   },
   checkoutButton: {
     padding: '0.75rem 2rem',
-    backgroundColor: '#48bb78',
+    background: 'linear-gradient(135deg, #4ECDC4 0%, #20BF6B 100%)',
     color: 'white',
     textDecoration: 'none',
-    borderRadius: '4px',
-    fontWeight: 'bold'
+    borderRadius: '10px',
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(78, 205, 196, 0.3)'
   }
 };
 

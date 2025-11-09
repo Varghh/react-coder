@@ -45,10 +45,32 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
               <p style={styles.addedText}>
                 ✓ Agregaste {quantityAdded} unidad(es) al carrito
               </p>
-              <Link to='/cart' style={styles.cartLink}>
+              <Link 
+                to='/cart' 
+                style={styles.cartLink}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(78, 205, 196, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(78, 205, 196, 0.3)';
+                }}
+              >
                 Ir al carrito
               </Link>
-              <Link to='/' style={styles.continueLink}>
+              <Link 
+                to='/' 
+                style={styles.continueLink}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 107, 107, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(255, 107, 107, 0.3)';
+                }}
+              >
                 Seguir comprando
               </Link>
             </div>
@@ -64,20 +86,25 @@ const ItemDetail = ({ id, name, img, category, description, price, stock }) => {
 const styles = {
   container: {
     display: 'flex',
-    gap: '2rem',
-    maxWidth: '900px',
+    gap: '3rem',
+    maxWidth: '1000px',
     margin: '2rem auto',
-    padding: '2rem',
-    border: '1px solid #ddd',
-    borderRadius: '8px'
+    padding: '2.5rem',
+    backgroundColor: '#2d2d44',
+    borderRadius: '20px',
+    boxShadow: '0 8px 30px rgba(0,0,0,0.6)'
   },
   imageContainer: {
-    flex: 1
+    flex: 1,
+    borderRadius: '16px',
+    overflow: 'hidden',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
   },
   img: {
     width: '100%',
-    borderRadius: '8px',
-    objectFit: 'cover'
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '0'
   },
   content: {
     flex: 1,
@@ -85,27 +112,34 @@ const styles = {
     flexDirection: 'column'
   },
   title: {
-    fontSize: '2rem',
-    marginBottom: '0.5rem'
+    fontSize: '2.5rem',
+    marginBottom: '0.5rem',
+    color: '#e0e0e0',
+    fontWeight: '700'
   },
   category: {
-    color: '#666',
+    color: '#b0b0b0',
     textTransform: 'capitalize',
-    marginBottom: '1rem'
+    marginBottom: '1.5rem',
+    fontSize: '1.1rem',
+    fontWeight: '500'
   },
   description: {
-    marginBottom: '1rem',
-    lineHeight: 1.6
+    marginBottom: '1.5rem',
+    lineHeight: 1.8,
+    color: '#e0e0e0',
+    fontSize: '1.05rem'
   },
   price: {
-    fontSize: '1.8rem',
-    color: '#2c5282',
+    fontSize: '2.2rem',
+    color: '#FF6B6B',
     fontWeight: 'bold',
     marginBottom: '0.5rem'
   },
   stock: {
-    color: '#666',
-    marginBottom: '1.5rem'
+    color: '#b0b0b0',
+    marginBottom: '2rem',
+    fontSize: '1rem'
   },
   addedContainer: {
     display: 'flex',
@@ -114,26 +148,31 @@ const styles = {
     marginTop: '1rem'
   },
   addedText: {
-    color: '#48bb78',
-    fontWeight: 'bold'
+    color: '#20BF6B',
+    fontWeight: 'bold',
+    fontSize: '1.1rem'
   },
   cartLink: {
-    padding: '0.75rem 2rem',
-    backgroundColor: '#48bb78',
+    padding: '1rem 2rem',
+    background: 'linear-gradient(135deg, #4ECDC4 0%, #20BF6B 100%)',
     color: 'white',
     textDecoration: 'none',
-    borderRadius: '4px',
+    borderRadius: '10px',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(78, 205, 196, 0.3)'
   },
   continueLink: {
-    padding: '0.75rem 2rem',
-    backgroundColor: '#3182ce',
+    padding: '1rem 2rem',
+    background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8C42 100%)',
     color: 'white',
     textDecoration: 'none',
-    borderRadius: '4px',
+    borderRadius: '10px',
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(255, 107, 107, 0.3)'
   }
 };
 

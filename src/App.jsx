@@ -14,43 +14,37 @@ function App() {
         <CartProvider>
           <NavBar />
           <Routes>
-            {/* Ruta principal - muestra todos los productos */}
             <Route 
               path='/' 
-              element={<ItemListContainer greeting="¡Bienvenidos a mi tienda!" />} 
+              element={<ItemListContainer greeting="¡Bienvenidos a Perrito con chaucha store!" />} 
             />
             
-            {/* Ruta para categorías - muestra productos filtrados */}
             <Route 
               path='/category/:categoryId' 
               element={<ItemListContainer greeting="Productos" />} 
             />
             
-            {/* Ruta para detalle de producto */}
             <Route 
               path='/item/:itemId' 
               element={<ItemDetailContainer />} 
             />
             
-            {/* Ruta para el carrito */}
             <Route 
               path='/cart' 
               element={<Cart />} 
             />
             
-            {/* Ruta para checkout */}
             <Route 
               path='/checkout' 
               element={<Checkout />} 
             />
             
-            {/* Ruta 404 - página no encontrada */}
             <Route 
               path='*' 
               element={
                 <div style={{ textAlign: 'center', padding: '2rem' }}>
                   <h1>404</h1>
-                  <p>Página no encontrada</p>
+                  <p>Algo se rompio y no se que auxilio</p>
                 </div>
               } 
             />

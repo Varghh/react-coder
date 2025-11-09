@@ -35,7 +35,6 @@ const Checkout = () => {
         date: new Date().toISOString()
       };
 
-      // Agregar la orden a Firestore
       const docRef = await addDoc(collection(db, 'orders'), order);
       
       setOrderId(docRef.id);
@@ -51,7 +50,7 @@ const Checkout = () => {
   if (loading) {
     return (
       <div style={styles.container}>
-        <h2>Procesando compra...</h2>
+        <h2 style={{ color: '#b0b0b0' }}>Procesando compra...</h2>
       </div>
     );
   }
@@ -64,7 +63,18 @@ const Checkout = () => {
           <p>Tu número de orden es:</p>
           <h3 style={styles.orderId}>{orderId}</h3>
           <p>Guarda este número para hacer seguimiento de tu pedido.</p>
-          <Link to='/' style={styles.homeButton}>
+          <Link 
+            to='/' 
+            style={styles.homeButton}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(255, 107, 107, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 15px rgba(255, 107, 107, 0.3)';
+            }}
+          >
             Volver al inicio
           </Link>
         </div>
@@ -91,10 +101,10 @@ const Checkout = () => {
       </div>
 
       <form onSubmit={createOrder} style={styles.form}>
-        <h3>Datos de contacto</h3>
+        <h3 style={styles.formTitle}>Datos de contacto</h3>
         
         <div style={styles.field}>
-          <label>Nombre completo</label>
+          <label style={styles.label}>Nombre completo</label>
           <input
             type="text"
             name="name"
@@ -102,11 +112,19 @@ const Checkout = () => {
             onChange={handleChange}
             required
             style={styles.input}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = '#FF6B6B';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 107, 107, 0.3)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = '#4d4d64';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           />
         </div>
 
         <div style={styles.field}>
-          <label>Teléfono</label>
+          <label style={styles.label}>Teléfono</label>
           <input
             type="tel"
             name="phone"
@@ -114,11 +132,19 @@ const Checkout = () => {
             onChange={handleChange}
             required
             style={styles.input}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = '#FF6B6B';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 107, 107, 0.3)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = '#4d4d64';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           />
         </div>
 
         <div style={styles.field}>
-          <label>Email</label>
+          <label style={styles.label}>Email</label>
           <input
             type="email"
             name="email"
@@ -126,10 +152,29 @@ const Checkout = () => {
             onChange={handleChange}
             required
             style={styles.input}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = '#FF6B6B';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 107, 107, 0.3)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = '#4d4d64';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           />
         </div>
 
-        <button type="submit" style={styles.submitButton}>
+        <button 
+          type="submit" 
+          style={styles.submitButton}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.02)';
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(78, 205, 196, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(78, 205, 196, 0.3)';
+          }}
+        >
           Confirmar compra
         </button>
       </form>
@@ -141,81 +186,121 @@ const styles = {
   container: {
     maxWidth: '700px',
     margin: '2rem auto',
-    padding: '2rem'
+    padding: '2rem',
+    color: '#e0e0e0'
   },
   summary: {
-    backgroundColor: '#f7fafc',
-    padding: '1.5rem',
-    borderRadius: '8px',
+    background: 'linear-gradient(135deg, #2d2d44 0%, #3d3d54 100%)',
+    padding: '2rem',
+    borderRadius: '16px',
     marginBottom: '2rem',
-    color: '#1a202c'
+    color: '#e0e0e0',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
   },
   summaryTitle: {
-    color: '#1a202c',
+    color: '#e0e0e0',
     marginTop: 0,
-    marginBottom: '1rem'
+    marginBottom: '1.5rem',
+    fontSize: '1.5rem',
+    fontWeight: '600'
   },
   item: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '0.5rem 0',
-    borderBottom: '1px solid #e2e8f0',
-    color: '#1a202c'
+    padding: '0.75rem 0',
+    borderBottom: '1px solid #4d4d64',
+    color: '#e0e0e0',
+    fontSize: '1rem'
   },
   total: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '1rem 0',
-    fontSize: '1.3rem',
+    padding: '1.5rem 0',
+    fontSize: '1.8rem',
     marginTop: '1rem',
-    color: '#1a202c'
+    color: '#FF6B6B',
+    fontWeight: '700',
+    borderTop: '2px solid #4d4d64'
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.5rem'
+    gap: '1.5rem',
+    backgroundColor: '#2d2d44',
+    padding: '2rem',
+    borderRadius: '16px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+    color: '#e0e0e0'
   },
   field: {
     display: 'flex',
     flexDirection: 'column',
     gap: '0.5rem'
   },
+  label: {
+    color: '#e0e0e0',
+    fontWeight: '500',
+    fontSize: '0.95rem'
+  },
+  formTitle: {
+    color: '#e0e0e0',
+    marginTop: 0,
+    marginBottom: '1rem',
+    fontSize: '1.5rem',
+    fontWeight: '600'
+  },
   input: {
-    padding: '0.75rem',
-    border: '1px solid #cbd5e0',
-    borderRadius: '4px',
-    fontSize: '1rem'
+    padding: '0.9rem',
+    border: '2px solid #4d4d64',
+    borderRadius: '10px',
+    fontSize: '1rem',
+    transition: 'all 0.3s ease',
+    outline: 'none',
+    backgroundColor: '#3d3d54',
+    color: '#e0e0e0'
   },
   submitButton: {
-    padding: '1rem 2rem',
-    backgroundColor: '#48bb78',
+    padding: '1.2rem 2rem',
+    background: 'linear-gradient(135deg, #4ECDC4 0%, #20BF6B 100%)',
     color: 'white',
     border: 'none',
-    borderRadius: '4px',
+    borderRadius: '12px',
     fontSize: '1.1rem',
     cursor: 'pointer',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(78, 205, 196, 0.3)',
+    marginTop: '0.5rem'
   },
   success: {
     textAlign: 'center',
-    padding: '3rem'
+    padding: '3rem',
+    backgroundColor: '#2d2d44',
+    borderRadius: '16px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+    color: '#e0e0e0'
   },
   orderId: {
-    backgroundColor: '#f7fafc',
-    padding: '1rem',
-    borderRadius: '8px',
-    color: '#2c5282',
-    margin: '1rem 0'
+    background: 'linear-gradient(135deg, #3d3d54 0%, #4d4d64 100%)',
+    padding: '1.5rem',
+    borderRadius: '12px',
+    color: '#FF6B6B',
+    margin: '1rem 0',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.5)'
   },
   homeButton: {
     display: 'inline-block',
     marginTop: '2rem',
     padding: '1rem 2rem',
-    backgroundColor: '#3182ce',
+    background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8C42 100%)',
     color: 'white',
     textDecoration: 'none',
-    borderRadius: '4px',
-    fontWeight: 'bold'
+    borderRadius: '12px',
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(255, 107, 107, 0.3)'
   }
 };
 

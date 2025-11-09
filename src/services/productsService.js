@@ -1,7 +1,6 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 
-// Función para obtener todos los productos desde Firebase
 export const getProducts = async () => {
   try {
     const productsRef = collection(db, 'products');
@@ -19,7 +18,6 @@ export const getProducts = async () => {
   }
 };
 
-// Función para obtener productos por categoría desde Firebase
 export const getProductsByCategory = async (categoryId) => {
   try {
     const productsRef = collection(db, 'products');
