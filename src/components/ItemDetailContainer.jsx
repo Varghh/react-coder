@@ -1,23 +1,32 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProducts, getProductsByCategory } from '../asyncMock';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
 import ItemList from './ItemList';
 
 const ItemListContainer = ({ greeting }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { categoryId } = useParams(); // Lee la categoría de la URL
+  const { categoryId } = useParams();
 
   useEffect(() => {
     setLoading(true);
 
-    // Si hay categoría, filtra. Si no, muestra todos
-    const asyncFunc = categoryId ? getProductsByCategory : getProducts;
+    const productsRef = collection(db, 'products');
 
-    asyncFunc(categoryId)
+    // Si hay categoría, filtrar. Si no, traer todos
+    const q = categoryId 
+      ? query(productsRef, where('category', '==', categoryId))
+      : productsRef;
+
+    getDocs(q)
       .then(response => {
-        setProducts(response);
+        const productsAdapted = response.docs.map(doc => {
+          const data = doc.data();
+          return { id: doc.id, ...data };
+        });
+        setProducts(productsAdapted);
       })
       .catch(error => {
         console.error(error);
@@ -25,7 +34,7 @@ const ItemListContainer = ({ greeting }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [categoryId]); // Se ejecuta cada vez que cambia la categoría
+  }, [categoryId]);
 
   if (loading) {
     return (
