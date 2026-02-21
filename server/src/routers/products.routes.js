@@ -15,18 +15,20 @@ router.get('/', async (req, res) => {
 
 router.get('/:pid', async (req, res) => {
   try {
-    const { pid } = req.params;
-    const productId = isNaN(pid) ? pid : parseInt(pid);
-    
+    const productId = parseInt(req.params.pid);
+    if (isNaN(productId)) {
+      return res.status(400).json({ status: 'error', message: 'El ID del producto debe ser un número válido' });
+    }
+
     const product = await productManager.getProductById(productId);
-    
+
     if (!product) {
-      return res.status(404).json({ 
-        status: 'error', 
-        message: 'Producto no encontrado' 
+      return res.status(404).json({
+        status: 'error',
+        message: 'Producto no encontrado'
       });
     }
-    
+
     res.json({ status: 'success', payload: product });
   } catch (error) {
     res.status(500).json({ status: 'error', message: error.message });
@@ -46,10 +48,12 @@ router.post('/', async (req, res) => {
 
 router.put('/:pid', async (req, res) => {
   try {
-    const { pid } = req.params;
-    const productId = isNaN(pid) ? pid : parseInt(pid);
+    const productId = parseInt(req.params.pid);
+    if (isNaN(productId)) {
+      return res.status(400).json({ status: 'error', message: 'El ID del producto debe ser un número válido' });
+    }
     const updateData = req.body;
-    
+
     const updatedProduct = await productManager.updateProduct(productId, updateData);
     
     res.json({ status: 'success', payload: updatedProduct });
@@ -63,9 +67,11 @@ router.put('/:pid', async (req, res) => {
 
 router.delete('/:pid', async (req, res) => {
   try {
-    const { pid } = req.params;
-    const productId = isNaN(pid) ? pid : parseInt(pid);
-    
+    const productId = parseInt(req.params.pid);
+    if (isNaN(productId)) {
+      return res.status(400).json({ status: 'error', message: 'El ID del producto debe ser un número válido' });
+    }
+
     await productManager.deleteProduct(productId);
     
     res.json({ status: 'success', message: 'Producto eliminado correctamente' });
